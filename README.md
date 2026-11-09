@@ -1,7 +1,55 @@
 # Nodo domótico de habitación con ESP32
 
-ESP32 DevKit V1 con FreeRTOS que mide temperatura, humedad, luz y presencia,
-y controla la luz (LED RGB) y la persiana (servo). Se gestiona desde un
-dashboard de Node-RED, una app Android, una consola UART y gestos (TinyML).
+Nodo domótico basado en un **ESP32 DevKit V1** con **FreeRTOS** (framework ESP-IDF).
+Mide temperatura, humedad, luz y presencia, y controla la iluminación (LED RGB)
+y una persiana (servo). Se gestiona desde un dashboard de Node-RED, una app
+Android, una consola UART y gestos reconocidos con TinyML.
 
-Proyecto de las asignaturas de IoT y de Redes y Dispositivos Móviles (UJI).
+Proyecto de las asignaturas de **IoT** y **Redes y Dispositivos Móviles** (UJI).
+
+## Estado
+
+| Parte | Estado |
+|---|---|
+| Entorno (PlatformIO + ESP-IDF) | ✅ |
+| LED RGB con PWM (LEDC) | ✅ probado |
+| Pulsador con ISR y antirrebote | ✅ |
+| Resto de sensores y actuadores | ⏳ |
+| Servidor Docker (MQTT, Node-RED, InfluxDB) | ⏳ |
+| TinyML (gestos) | ⏳ |
+| App Android | ⏳ |
+
+## Estructura del repositorio
+
+| Carpeta | Contenido |
+|---|---|
+| `proyecto/` | Firmware del ESP32 (proyecto PlatformIO, ESP-IDF) |
+| `servidor/` | Docker Compose: Mosquitto, Node-RED e InfluxDB |
+| `ml/` | Captura de gestos y entrenamiento del modelo |
+| `app/` | App Android |
+| `documentos/` | Esquemas, medidas e imágenes |
+
+## Hardware y conexiones
+
+ESP32 DevKit V1 sobre una placa de expansión de 30 pines (jumper de V en 3,3 V).
+
+| Componente | Pin del ESP32 | Notas |
+|---|---|---|
+| LED RGB: rojo / verde / azul | GPIO25 / GPIO26 / GPIO27 | Ánodo común (común a 3V3), PWM invertido |
+| Pulsador | GPIO32 | Pull-up interna, el otro pin a GND |
+
+## Compilar y subir
+
+Requisitos: VSCode con la extensión PlatformIO.
+
+1. Abrir la carpeta `proyecto/` en VSCode.
+2. Compilar con **Build** (✓) y subir con **Upload** (→).
+3. Abrir el monitor serie (115200 baudios) con **Serial Monitor**.
+
+## Firmware
+
+| Fichero | Contenido |
+|---|---|
+| `config.h` | Pines y constantes |
+| `pulsador.c/.h` | Pulsador: ISR → timer de antirrebote (50 ms) → semáforo binario |
+| `main.c` | Arranque: servicio de ISR, semáforos, módulos y tareas |
