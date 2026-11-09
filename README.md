@@ -53,3 +53,4 @@ Requisitos: VSCode con la extensión PlatformIO.
 | `config.h` | Pines y constantes |
 | `pulsador.c/.h` | Pulsador: ISR → timer de antirrebote (50 ms) → semáforo binario |
 | `main.c` | Arranque: servicio de ISR, semáforos, módulos y tareas |
+| `led_rgb.c/.h` | LED RGB por PWM (LEDC, 5 kHz, 8 bits, salida invertida) |

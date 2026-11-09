@@ -17,3 +17,4 @@
 #define PIN_LED_R        GPIO_NUM_25
 #define PIN_LED_G        GPIO_NUM_26
 #define PIN_LED_B        GPIO_NUM_27
+#define LED_PWM_FREQ_HZ  5000          // Frecuencia del PWM del LED (sin parpadeo visible)
