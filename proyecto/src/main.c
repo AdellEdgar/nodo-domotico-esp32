@@ -15,6 +15,7 @@
 #include "config.h"
 #include "pulsador.h"
 #include "led_rgb.h"
+#include "servo.h"
 
 static const char *TAG = "main";
 
@@ -42,6 +43,18 @@ static void vControlTask(void *pvParameters)
     }
 }
 
+/** Prueba provisional: recorre varias posiciones de la persiana. */
+static void vPruebaServo(void *pvParameters)
+{
+    const uint8_t posiciones[] = { 0, 50, 100, 50 };
+    for (;;) {
+        for (int i = 0; i < 4; i++) {
+            servo_set_porcentaje(posiciones[i]);
+            vTaskDelay(pdMS_TO_TICKS(2000));
+        }
+    }
+}
+
 void app_main(void)
 {
     // Servicio de ISR de GPIO: se instala una sola vez para todos los pines
@@ -52,6 +65,9 @@ void app_main(void)
 
     led_rgb_init();
     pulsador_init(sPulsador);
+
+    servo_init();
+    xTaskCreatePinnedToCore(vPruebaServo, "PruebaServo", 3072, NULL, 3, NULL, 1);
 
     // Núcleo 1: sensores y control. Prioridad 4, según la especificación
     xTaskCreatePinnedToCore(vControlTask, "ControlTask", 3072, NULL, 4, NULL, 1);

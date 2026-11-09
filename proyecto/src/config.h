@@ -18,3 +18,8 @@
 #define PIN_LED_G        GPIO_NUM_26
 #define PIN_LED_B        GPIO_NUM_27
 #define LED_PWM_FREQ_HZ  5000          // Frecuencia del PWM del LED (sin parpadeo visible)
+
+/* ---------- Servo SG90 (persiana) ---------- */
+#define PIN_SERVO           GPIO_NUM_13
+#define SERVO_PULSO_MIN_US  500       // Pulso para 0 % (0°)
+#define SERVO_PULSO_MAX_US  2500      // Pulso para 100 % (180°)
