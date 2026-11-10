@@ -23,3 +23,6 @@
 #define PIN_SERVO           GPIO_NUM_13
 #define SERVO_PULSO_MIN_US  500       // Pulso para 0 % (0°)
 #define SERVO_PULSO_MAX_US  2500      // Pulso para 100 % (180°)
+
+/* ---------- Sensor PIR HC-SR501 ---------- */
+#define PIN_PIR          GPIO_NUM_33   // Pin RTC: despertará del deep sleep (ext0)

@@ -16,10 +16,13 @@
 #include "pulsador.h"
 #include "led_rgb.h"
 #include "servo.h"
+#include "pir.h"
 
 static const char *TAG = "main";
 
 static SemaphoreHandle_t sPulsador;   // Pulsación válida: timer de antirrebote -> ControlTask
+
+static SemaphoreHandle_t sPresencia;  // Detección del PIR: ISR -> ControlTask
 
 /**
  * ControlTask (provisional). Espera bloqueada en sPulsador y recorre los
@@ -55,6 +58,23 @@ static void vPruebaServo(void *pvParameters)
     }
 }
 
+/** Prueba provisional: mide cuánto dura cada detección del PIR. */
+static void vPruebaPir(void *pvParameters)
+{
+    for (;;) {
+        xSemaphoreTake(sPresencia, portMAX_DELAY);
+        TickType_t inicio = xTaskGetTickCount();
+        ESP_LOGI(TAG, "Presencia detectada");
+
+        while (pir_activo()) {
+            vTaskDelay(pdMS_TO_TICKS(50));
+        }
+        uint32_t ms = pdTICKS_TO_MS(xTaskGetTickCount() - inicio);
+        ESP_LOGI(TAG, "Fin de presencia: salida activa %lu.%lu s",
+                 (unsigned long)(ms / 1000), (unsigned long)((ms % 1000) / 100));
+    }
+}
+
 void app_main(void)
 {
     // Servicio de ISR de GPIO: se instala una sola vez para todos los pines
@@ -66,8 +86,13 @@ void app_main(void)
     led_rgb_init();
     pulsador_init(sPulsador);
 
+    sPresencia = xSemaphoreCreateBinary();
+    configASSERT(sPresencia);
+    pir_init(sPresencia);
+    xTaskCreatePinnedToCore(vPruebaPir, "PruebaPir", 3072, NULL, 3, NULL, 1);
+
     servo_init();
-    xTaskCreatePinnedToCore(vPruebaServo, "PruebaServo", 3072, NULL, 3, NULL, 1);
+    //xTaskCreatePinnedToCore(vPruebaServo, "PruebaServo", 3072, NULL, 3, NULL, 1);
 
     // Núcleo 1: sensores y control. Prioridad 4, según la especificación
     xTaskCreatePinnedToCore(vControlTask, "ControlTask", 3072, NULL, 4, NULL, 1);

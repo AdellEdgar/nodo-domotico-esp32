@@ -38,6 +38,7 @@ ESP32 DevKit V1 sobre una placa de expansión de 30 pines (jumper de V en 3,3 V)
 | LED RGB: rojo / verde / azul | GPIO25 / GPIO26 / GPIO27 | Ánodo común (común a 3V3), PWM invertido |
 | Pulsador | GPIO32 | Pull-up interna, el otro pin a GND |
 | Servo SG90 (persiana) | GPIO13 | 5 V desde la placa de expansión (alimentada por USB-C aparte) |
+| PIR HC-SR501 | GPIO33 | VCC a 5 V, salida de 3,3 V. Tiempo y sensibilidad al mínimo, jumper en H |
 
 ## Compilar y subir
 
@@ -56,3 +57,4 @@ Requisitos: VSCode con la extensión PlatformIO.
 | `main.c` | Arranque: servicio de ISR, semáforos, módulos y tareas |
 | `led_rgb.c/.h` | LED RGB por PWM (LEDC, 5 kHz, 8 bits, salida invertida) |
 | `servo.c/.h` | Servo por PWM (LEDC, 50 Hz, 16 bits, pulso 0,5-2,5 ms) |
+| `pir.c/.h` | PIR: ISR en flanco de subida → semáforo binario `sPresencia` |
