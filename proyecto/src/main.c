@@ -17,6 +17,8 @@
 #include "led_rgb.h"
 #include "servo.h"
 #include "pir.h"
+#include "i2c_bus.h"
+#include "bh1750.h"
 
 static const char *TAG = "main";
 
@@ -75,10 +77,28 @@ static void vPruebaPir(void *pvParameters)
     }
 }
 
+/** Prueba provisional: muestra la luz cada segundo. */
+static void vPruebaLuz(void *pvParameters)
+{
+    float lux;
+    for (;;) {
+        if (bh1750_leer_lux(&lux) == ESP_OK) {
+            ESP_LOGI(TAG, "Luz: %.1f lux", lux);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
 void app_main(void)
 {
     // Servicio de ISR de GPIO: se instala una sola vez para todos los pines
     ESP_ERROR_CHECK(gpio_install_isr_service(0));
+
+    i2c_bus_init();
+    i2c_bus_escanear();
+
+    bh1750_init();
+    xTaskCreatePinnedToCore(vPruebaLuz, "PruebaLuz", 3072, NULL, 3, NULL, 1);
 
     sPulsador = xSemaphoreCreateBinary();
     configASSERT(sPulsador);

@@ -39,6 +39,7 @@ ESP32 DevKit V1 sobre una placa de expansión de 30 pines (jumper de V en 3,3 V)
 | Pulsador | GPIO32 | Pull-up interna, el otro pin a GND |
 | Servo SG90 (persiana) | GPIO13 | 5 V desde la placa de expansión (alimentada por USB-C aparte) |
 | PIR HC-SR501 | GPIO33 | VCC a 5 V, salida de 3,3 V. Tiempo y sensibilidad al mínimo, jumper en H |
+| Sensor de luz BH1750 (I2C, 0x23) | SDA GPIO21, SCL GPIO22 | VCC a 3,3 V. Sustituye al LDR analógico |
 
 ## Compilar y subir
 
@@ -58,3 +59,5 @@ Requisitos: VSCode con la extensión PlatformIO.
 | `led_rgb.c/.h` | LED RGB por PWM (LEDC, 5 kHz, 8 bits, salida invertida) |
 | `servo.c/.h` | Servo por PWM (LEDC, 50 Hz, 16 bits, pulso 0,5-2,5 ms) |
 | `pir.c/.h` | PIR: ISR en flanco de subida → semáforo binario `sPresencia` |
+| `i2c_bus.c/.h` | Bus I2C compartido (400 kHz) y escáner |
+| `bh1750.c/.h` | Sensor de luz BH1750: medida continua en lux |

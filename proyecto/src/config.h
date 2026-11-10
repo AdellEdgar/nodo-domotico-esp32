@@ -26,3 +26,11 @@
 
 /* ---------- Sensor PIR HC-SR501 ---------- */
 #define PIN_PIR          GPIO_NUM_33   // Pin RTC: despertará del deep sleep (ext0)
+
+/* ---------- Bus I2C (BH1750, y más adelante BME280 y MPU6050) ---------- */
+#define PIN_I2C_SDA      GPIO_NUM_21
+#define PIN_I2C_SCL      GPIO_NUM_22
+#define I2C_FREQ_HZ      400000        // 400 kHz (modo rápido)
+
+/* ---------- Sensor de luz BH1750 (I2C) ---------- */
+#define BH1750_DIR       0x23          // ADDR sin conectar (0x5C con ADDR a 3,3 V)
