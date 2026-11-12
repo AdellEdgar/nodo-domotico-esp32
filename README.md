@@ -41,6 +41,13 @@ ESP32 DevKit V1 sobre una placa de expansión de 30 pines (jumper de V en 3,3 V)
 | PIR HC-SR501 | GPIO33 | VCC a 5 V, salida de 3,3 V. Tiempo y sensibilidad al mínimo, jumper en H |
 | Sensor de luz BH1750 (I2C, 0x23) | SDA GPIO21, SCL GPIO22 | VCC a 3,3 V. Sustituye al LDR analógico |
 
+### Bus I2C
+El conector I2C de la placa de expansión (D21 = SDA, D22 = SCL, VCC a 3,3 V, GND) se lleva a una protoboard donde se conectan los sensores I2C.
+
+| Dispositivo | Dirección |
+|---|---|
+| BH1750 (luz) | 0x23 |
+
 ## Compilar y subir
 
 Requisitos: VSCode con la extensión PlatformIO.
