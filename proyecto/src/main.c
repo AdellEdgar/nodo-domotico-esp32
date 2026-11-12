@@ -20,6 +20,7 @@
 #include "i2c_bus.h"
 #include "bh1750.h"
 #include "bme280.h"
+#include "mpu6050.h"
 
 static const char *TAG = "main";
 
@@ -90,6 +91,11 @@ static void vPruebaLuz(void *pvParameters)
         if (bme280_leer(&temp, &hum, &pres) == ESP_OK) {
         ESP_LOGI(TAG, "Temp: %.2f C  Hum: %.1f %%  Pres: %.1f hPa", temp, hum, pres);
         }
+        mpu6050_datos_t m;
+        if (mpu6050_leer(&m) == ESP_OK) {
+            ESP_LOGI(TAG, "Acel: %+.2f %+.2f %+.2f g  Giro: %+6.1f %+6.1f %+6.1f dps",
+                 m.ax, m.ay, m.az, m.gx, m.gy, m.gz);
+        }
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -104,6 +110,7 @@ void app_main(void)
 
     bh1750_init();
     bme280_init();
+    mpu6050_init();
     xTaskCreatePinnedToCore(vPruebaLuz, "PruebaLuz", 3072, NULL, 3, NULL, 1);
 
     sPulsador = xSemaphoreCreateBinary();

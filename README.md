@@ -48,6 +48,7 @@ El conector I2C de la placa de expansión (D21 = SDA, D22 = SCL, VCC a 3,3 V, GN
 |---|---|
 | BH1750 (luz) | 0x23 |
 | BME280 (temperatura, humedad, presión) | 0x76 |
+| MPU6050 (GY-521, chip MPU6500): acelerómetro y giroscopio | 0x68 |
 
 ## Compilar y subir
 
@@ -69,4 +70,5 @@ Requisitos: VSCode con la extensión PlatformIO.
 | `pir.c/.h` | PIR: ISR en flanco de subida → semáforo binario `sPresencia` |
 | `i2c_bus.c/.h` | Bus I2C compartido (400 kHz) y escáner |
 | `bh1750.c/.h` | Sensor de luz BH1750: medida continua en lux |
-- `bme280.c/.h`: sensor ambiental BME280 por I2C. Comprueba el ID del chip (0x60), lee la calibración de fábrica y devuelve temperatura (°C), humedad (%) y presión (hPa) con las fórmulas de compensación de Bosch.
+| `bme280.c/.h`| Sensor ambiental BME280 por I2C. Comprueba el ID del chip (0x60), lee la calibración de fábrica y devuelve temperatura (°C), humedad (%) y presión (hPa) con las fórmulas de compensación de Bosch.
+| `mpu6050.c/.h`| Acelerómetro y giroscopio por I2C (acepta MPU6050 y MPU6500). 100 Hz, ±4 g, ±1000 °/s y filtro de ~44 Hz. Al arrancar calibra el sesgo del giroscopio con el sensor quieto durante 1 s.

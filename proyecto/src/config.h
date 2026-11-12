@@ -35,3 +35,4 @@
 /* ---------- Sensor de luz BH1750 (I2C) ---------- */
 #define BH1750_DIR      0x23          // ADDR sin conectar (0x5C con ADDR a 3,3 V)
 #define BME280_DIR      0x76          // BME280 (Grove, puente ADDR en 0x76 por defecto)
+#define MPU6050_DIR     0x68    // MPU6050 (GY-521, AD0 sin conectar)
