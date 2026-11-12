@@ -29,6 +29,12 @@ Proyecto de las asignaturas de **IoT** y **Redes y Dispositivos Móviles** (UJI)
 | `app/` | App Android |
 | `documentos/` | Esquemas, medidas e imágenes |
 
+proyecto/src/
+├── CMakeLists.txt   # Compila src/ y src/drivers/
+├── config.h         # Pines, direcciones I2C y constantes
+├── main.c           # Arranque y tareas
+└── drivers/         # Un .c/.h por componente (sensores, actuadores, bus I2C)
+
 ## Hardware y conexiones
 
 ESP32 DevKit V1 sobre una placa de expansión de 30 pines (jumper de V en 3,3 V).
