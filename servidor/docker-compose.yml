@@ -12,6 +12,21 @@ services:
     networks:
       - domotica
 
+  nodered:
+    image: nodered/node-red:5
+    container_name: nodered
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    ports:
+      - "1880:1880"
+    environment:
+      - TZ=Europe/Madrid
+    volumes:
+      - ./nodered/data:/data
+    networks:
+      - domotica
+
 networks:
   domotica:
     name: domotica
