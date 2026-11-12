@@ -19,6 +19,7 @@
 #include "pir.h"
 #include "i2c_bus.h"
 #include "bh1750.h"
+#include "bme280.h"
 
 static const char *TAG = "main";
 
@@ -85,6 +86,10 @@ static void vPruebaLuz(void *pvParameters)
         if (bh1750_leer_lux(&lux) == ESP_OK) {
             ESP_LOGI(TAG, "Luz: %.1f lux", lux);
         }
+        float temp, hum, pres;
+        if (bme280_leer(&temp, &hum, &pres) == ESP_OK) {
+        ESP_LOGI(TAG, "Temp: %.2f C  Hum: %.1f %%  Pres: %.1f hPa", temp, hum, pres);
+        }
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -98,6 +103,7 @@ void app_main(void)
     i2c_bus_escanear();
 
     bh1750_init();
+    bme280_init();
     xTaskCreatePinnedToCore(vPruebaLuz, "PruebaLuz", 3072, NULL, 3, NULL, 1);
 
     sPulsador = xSemaphoreCreateBinary();
