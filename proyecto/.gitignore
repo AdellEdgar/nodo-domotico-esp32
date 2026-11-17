@@ -1,1 +1,3 @@
 .pio
+nodered/data/node_modules/
+nodered/data/.npm/

@@ -9,7 +9,6 @@
             "name": "PlatformIO",
             "includePath": [
                 "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/include",
-                "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/src",
                 "/home/edgar/.platformio/packages/framework-espidf/components/xtensa/esp32/include",
                 "/home/edgar/.platformio/packages/framework-espidf/components/xtensa/include",
                 "/home/edgar/.platformio/packages/framework-espidf/components/xtensa/deprecated_include",
@@ -245,13 +244,14 @@
                 "/home/edgar/.platformio/packages/framework-espidf/components/perfmon/include",
                 "/home/edgar/.platformio/packages/framework-espidf/components/rt/include",
                 "/home/edgar/.platformio/packages/framework-espidf/components/spiffs/include",
+                "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/src",
+                "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/src/drivers",
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
                     "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/include",
-                    "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/src",
                     "/home/edgar/.platformio/packages/framework-espidf/components/xtensa/esp32/include",
                     "/home/edgar/.platformio/packages/framework-espidf/components/xtensa/include",
                     "/home/edgar/.platformio/packages/framework-espidf/components/xtensa/deprecated_include",
@@ -487,6 +487,8 @@
                     "/home/edgar/.platformio/packages/framework-espidf/components/perfmon/include",
                     "/home/edgar/.platformio/packages/framework-espidf/components/rt/include",
                     "/home/edgar/.platformio/packages/framework-espidf/components/spiffs/include",
+                    "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/src",
+                    "/home/edgar/Escritorio/nodo-domotico-esp32/proyecto/src/drivers",
                     ""
                 ]
             },
