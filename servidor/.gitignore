@@ -3,3 +3,4 @@ mosquitto/log/
 mosquitto/config/passwd
 influxdb/data/
 influxdb/data/
+influxdb/data/
