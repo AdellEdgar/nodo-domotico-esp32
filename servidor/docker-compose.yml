@@ -18,12 +18,34 @@ services:
     restart: unless-stopped
     depends_on:
       - mosquitto
+      - influxdb
     ports:
       - "1880:1880"
     environment:
       - TZ=Europe/Madrid
     volumes:
       - ./nodered/data:/data
+    networks:
+      - domotica
+
+  influxdb:
+    image: influxdb:2
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      - TZ=Europe/Madrid
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=123456Siete
+      - DOCKER_INFLUXDB_INIT_ORG=nodo-domotico
+      - DOCKER_INFLUXDB_INIT_BUCKET=habitacion1
+      - DOCKER_INFLUXDB_INIT_RETENTION=30d
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=123456Siete
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2
+      - ./influxdb/config:/etc/influxdb2
     networks:
       - domotica
 
