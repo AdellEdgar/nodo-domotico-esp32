@@ -2,3 +2,4 @@ mosquitto/data/
 mosquitto/log/
 mosquitto/config/passwd
 influxdb/data/
+influxdb/data/
